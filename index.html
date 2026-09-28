@@ -1,0 +1,1821 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>楊梅高中分機一覽表</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+<style>
+  /* ===== CSS 變數系統 ===== */
+  :root {
+    --primary: #1a73e8;
+    --primary-dark: #1557b0;
+    --secondary: #34a853;
+    --accent: #fbbc04;
+    --danger: #ea4335;
+    --purple: #7c3aed;
+    --pink: #ec4899;
+    --cyan: #06b6d4;
+    --bg: #f0f4ff;
+    --surface: #ffffff;
+    --surface2: #f8faff;
+    --text: #1e293b;
+    --text-secondary: #475569;
+    --text-muted: #94a3b8;
+    --border: #e2e8f0;
+    --shadow: 0 4px 24px rgba(26,115,232,0.12);
+    --shadow-lg: 0 8px 40px rgba(26,115,232,0.18);
+    --radius: 16px;
+    --radius-sm: 8px;
+    --font-size-base: 16px;
+    --font-size-sm: 14px;
+    --font-size-lg: 18px;
+    --font-size-xl: 22px;
+    --font-size-2xl: 28px;
+    --transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+    --header-bg: linear-gradient(135deg, #1a73e8 0%, #7c3aed 50%, #ec4899 100%);
+  }
+
+  /* ===== 暗色模式 ===== */
+  [data-theme="dark"] {
+    --bg: #0f172a;
+    --surface: #1e293b;
+    --surface2: #162032;
+    --text: #f1f5f9;
+    --text-secondary: #94a3b8;
+    --text-muted: #64748b;
+    --border: #334155;
+    --shadow: 0 4px 24px rgba(0,0,0,0.4);
+    --shadow-lg: 0 8px 40px rgba(0,0,0,0.5);
+    --header-bg: linear-gradient(135deg, #1e40af 0%, #4c1d95 50%, #831843 100%);
+  }
+
+  /* ===== 全域樣式 ===== */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  
+  html {
+    font-size: var(--font-size-base);
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: 'Noto Sans TC', 'Microsoft JhengHei', '微軟正黑體', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    transition: var(--transition);
+    overflow-x: hidden;
+  }
+
+  /* ===== 粒子背景 ===== */
+  #particles-bg {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+  .particle {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.15;
+    animation: float-up linear infinite;
+  }
+  @keyframes float-up {
+    0% { transform: translateY(100vh) scale(0); opacity: 0; }
+    10% { opacity: 0.15; }
+    90% { opacity: 0.15; }
+    100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+  }
+
+  /* ===== 主容器 ===== */
+  .app-wrapper {
+    position: relative;
+    z-index: 1;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 16px 80px;
+  }
+
+  /* ===== 頁首 ===== */
+  .site-header {
+    background: var(--header-bg);
+    color: white;
+    padding: 32px 24px 24px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    margin: 0 -16px 32px;
+    box-shadow: var(--shadow-lg);
+  }
+  .site-header::before {
+    content: '';
+    position: absolute;
+    top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    background: radial-gradient(ellipse at center, rgba(255,255,255,0.1) 0%, transparent 60%);
+    animation: shimmer 4s ease-in-out infinite;
+  }
+  @keyframes shimmer {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(10%, 5%); }
+  }
+
+  .header-icon {
+    font-size: 56px;
+    display: block;
+    margin-bottom: 12px;
+    animation: bounce-in 0.8s cubic-bezier(0.68,-0.55,0.265,1.55);
+  }
+  @keyframes bounce-in {
+    0% { transform: scale(0) rotate(-20deg); opacity: 0; }
+    100% { transform: scale(1) rotate(0); opacity: 1; }
+  }
+
+  .site-title {
+    font-size: clamp(22px, 5vw, 38px);
+    font-weight: 900;
+    text-shadow: 0 2px 12px rgba(0,0,0,0.3);
+    letter-spacing: 2px;
+    position: relative;
+    z-index: 1;
+    animation: slide-down 0.6s ease-out;
+  }
+  @keyframes slide-down {
+    from { transform: translateY(-30px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+
+  .site-subtitle {
+    font-size: clamp(13px, 2.5vw, 16px);
+    opacity: 0.9;
+    margin-top: 8px;
+    position: relative;
+    z-index: 1;
+    animation: slide-down 0.6s ease-out 0.2s both;
+  }
+
+  .header-stats {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 1;
+  }
+  .stat-badge {
+    background: rgba(255,255,255,0.2);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 50px;
+    padding: 6px 16px;
+    font-size: 14px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: var(--transition);
+  }
+  .stat-badge:hover {
+    background: rgba(255,255,255,0.35);
+    transform: translateY(-2px);
+  }
+
+  /* ===== 總機資訊橫幅 ===== */
+  .hotline-banner {
+    background: linear-gradient(135deg, var(--secondary), #059669);
+    color: white;
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    margin-bottom: 28px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px;
+    box-shadow: var(--shadow);
+    animation: slide-in-left 0.5s ease-out 0.3s both;
+  }
+  @keyframes slide-in-left {
+    from { transform: translateX(-40px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+  }
+  .hotline-icon { font-size: 32px; flex-shrink: 0; }
+  .hotline-info { flex: 1; min-width: 200px; }
+  .hotline-title { font-size: var(--font-size-lg); font-weight: 700; margin-bottom: 4px; }
+  .hotline-numbers {
+    display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px;
+  }
+  .hotline-num {
+    background: rgba(255,255,255,0.25);
+    border-radius: 20px;
+    padding: 4px 14px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    text-decoration: none;
+    color: white;
+  }
+  .hotline-num:hover {
+    background: rgba(255,255,255,0.45);
+    transform: scale(1.05);
+  }
+
+  /* ===== 搜尋區 ===== */
+  .search-section {
+    margin-bottom: 28px;
+    animation: slide-in-left 0.5s ease-out 0.4s both;
+  }
+  .search-box-wrap {
+    position: relative;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .search-input-wrap {
+    flex: 1;
+    min-width: 240px;
+    position: relative;
+  }
+  .search-icon {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+    pointer-events: none;
+  }
+  .search-input {
+    width: 100%;
+    padding: 14px 50px 14px 48px;
+    border: 2px solid var(--border);
+    border-radius: 50px;
+    font-size: var(--font-size-lg);
+    background: var(--surface);
+    color: var(--text);
+    outline: none;
+    transition: var(--transition);
+    font-family: inherit;
+  }
+  .search-input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(26,115,232,0.15);
+  }
+  .search-clear {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    color: var(--text-muted);
+    padding: 4px;
+    border-radius: 50%;
+    transition: var(--transition);
+    display: none;
+  }
+  .search-clear:hover { color: var(--danger); background: rgba(234,67,53,0.1); }
+  .search-clear.visible { display: block; }
+
+  .filter-tabs {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 12px;
+  }
+  .filter-tab {
+    padding: 8px 18px;
+    border-radius: 50px;
+    border: 2px solid var(--border);
+    background: var(--surface);
+    color: var(--text-secondary);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    font-family: inherit;
+  }
+  .filter-tab:hover, .filter-tab.active {
+    border-color: var(--primary);
+    background: var(--primary);
+    color: white;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(26,115,232,0.3);
+  }
+
+  /* ===== 結果摘要 ===== */
+  .result-summary {
+    padding: 10px 16px;
+    background: var(--surface2);
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-bottom: 16px;
+    border-left: 4px solid var(--primary);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .result-count {
+    font-weight: 700;
+    color: var(--primary);
+    font-size: 18px;
+  }
+
+  /* ===== 部門區塊 ===== */
+  .dept-section {
+    margin-bottom: 32px;
+    animation: fade-in-up 0.5s ease-out both;
+  }
+  @keyframes fade-in-up {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+
+  .dept-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 24px;
+    border-radius: var(--radius) var(--radius) 0 0;
+    color: white;
+    font-size: var(--font-size-lg);
+    font-weight: 700;
+    cursor: pointer;
+    transition: var(--transition);
+    user-select: none;
+    position: relative;
+    overflow: hidden;
+  }
+  .dept-header::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(255,255,255,0);
+    transition: var(--transition);
+  }
+  .dept-header:hover::after { background: rgba(255,255,255,0.1); }
+
+  .dept-icon { font-size: 28px; flex-shrink: 0; }
+  .dept-name { flex: 1; letter-spacing: 1px; }
+  .dept-count {
+    background: rgba(255,255,255,0.25);
+    border-radius: 20px;
+    padding: 3px 12px;
+    font-size: 13px;
+    font-weight: 700;
+  }
+  .dept-toggle {
+    font-size: 20px;
+    transition: transform 0.3s ease;
+  }
+  .dept-toggle.collapsed { transform: rotate(-90deg); }
+
+  .dept-body {
+    background: var(--surface);
+    border: 2px solid var(--border);
+    border-top: none;
+    border-radius: 0 0 var(--radius) var(--radius);
+    overflow: hidden;
+    transition: var(--transition);
+  }
+  .dept-body.collapsed {
+    max-height: 0;
+    border-bottom-width: 0;
+  }
+
+  /* ===== 分機表格 ===== */
+  .ext-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .ext-table th {
+    background: var(--surface2);
+    padding: 12px 16px;
+    text-align: left;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 2px solid var(--border);
+    position: sticky;
+    top: 0;
+  }
+  .ext-table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: middle;
+    font-size: var(--font-size-base);
+    transition: var(--transition);
+  }
+  .ext-row {
+    transition: var(--transition);
+    cursor: pointer;
+  }
+  .ext-row:hover td {
+    background: rgba(26,115,232,0.06);
+  }
+  .ext-row.hidden { display: none; }
+
+  .ext-name {
+    font-weight: 600;
+    color: var(--text);
+    min-width: 120px;
+  }
+  .ext-num {
+    font-family: 'Courier New', monospace;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--primary);
+    min-width: 80px;
+  }
+  .ext-num .num-badge {
+    background: rgba(26,115,232,0.12);
+    border-radius: 6px;
+    padding: 2px 10px;
+    display: inline-block;
+    transition: var(--transition);
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .ext-num .num-badge:hover {
+    background: var(--primary);
+    color: white;
+    transform: scale(1.05);
+  }
+  .ext-num .num-badge + .num-badge { margin-left: 6px; }
+
+  .ext-person {
+    color: var(--text-secondary);
+    min-width: 80px;
+  }
+  .ext-person-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--surface2);
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-size: 14px;
+  }
+
+  .copy-btn {
+    background: none;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 6px 10px;
+    border-radius: var(--radius-sm);
+    transition: var(--transition);
+    color: var(--text-muted);
+    opacity: 0;
+  }
+  .ext-row:hover .copy-btn { opacity: 1; }
+  .copy-btn:hover { color: var(--primary); background: rgba(26,115,232,0.1); }
+  .copy-btn.copied { color: var(--secondary); }
+
+  /* ===== 卡片視圖 (手機) ===== */
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+    padding: 16px;
+  }
+  .ext-card {
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    padding: 18px;
+    transition: var(--transition);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+  .ext-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: var(--card-accent, var(--primary));
+  }
+  .ext-card:hover {
+    border-color: var(--primary);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+  }
+  .ext-card.hidden { display: none; }
+
+  .card-dept { font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+  .card-name { font-size: 17px; font-weight: 700; color: var(--text); margin-bottom: 10px; }
+  .card-nums { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+  .card-num-btn {
+    background: rgba(26,115,232,0.1);
+    color: var(--primary);
+    border: none;
+    border-radius: 6px;
+    padding: 5px 12px;
+    font-size: 16px;
+    font-weight: 700;
+    font-family: 'Courier New', monospace;
+    cursor: pointer;
+    transition: var(--transition);
+  }
+  .card-num-btn:hover { background: var(--primary); color: white; transform: scale(1.05); }
+  .card-person {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    color: var(--text-secondary);
+  }
+
+  /* ===== 無結果 ===== */
+  .no-results {
+    text-align: center;
+    padding: 60px 24px;
+    color: var(--text-muted);
+    display: none;
+  }
+  .no-results.visible { display: block; }
+  .no-results-icon { font-size: 64px; margin-bottom: 16px; }
+  .no-results-text { font-size: 20px; font-weight: 600; }
+  .no-results-sub { font-size: 15px; margin-top: 8px; }
+
+  /* ===== 視圖切換 ===== */
+  .view-toggle {
+    display: flex;
+    gap: 8px;
+    background: var(--surface2);
+    border-radius: 50px;
+    padding: 4px;
+    border: 2px solid var(--border);
+  }
+  .view-btn {
+    padding: 8px 16px;
+    border-radius: 50px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 18px;
+    transition: var(--transition);
+    color: var(--text-muted);
+  }
+  .view-btn.active { background: var(--primary); color: white; box-shadow: 0 2px 8px rgba(26,115,232,0.4); }
+
+  /* ===== 設定浮動按鈕 ===== */
+  .settings-fab {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: var(--header-bg);
+    color: white;
+    border: none;
+    font-size: 28px;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(26,115,232,0.5);
+    z-index: 1000;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: pulse-ring 2s ease-in-out infinite;
+  }
+  @keyframes pulse-ring {
+    0%, 100% { box-shadow: 0 4px 20px rgba(26,115,232,0.5), 0 0 0 0 rgba(26,115,232,0.3); }
+    50% { box-shadow: 0 4px 20px rgba(26,115,232,0.5), 0 0 0 12px rgba(26,115,232,0); }
+  }
+  .settings-fab:hover { transform: scale(1.1) rotate(30deg); }
+  .settings-fab .settings-spin { display: inline-block; transition: transform 0.5s ease; }
+  .settings-fab:hover .settings-spin { transform: rotate(180deg); }
+
+  /* ===== 設定面板 ===== */
+  .settings-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 1001;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    backdrop-filter: blur(4px);
+  }
+  .settings-overlay.open { opacity: 1; pointer-events: all; }
+
+  .settings-panel {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: min(480px, 100%);
+    max-height: 90vh;
+    background: var(--surface);
+    border-radius: var(--radius) var(--radius) 0 0;
+    z-index: 1002;
+    overflow-y: auto;
+    transform: translateY(100%);
+    transition: transform 0.4s cubic-bezier(0.4,0,0.2,1);
+    box-shadow: 0 -8px 40px rgba(0,0,0,0.2);
+  }
+  .settings-panel.open { transform: translateY(0); }
+
+  .settings-header {
+    background: var(--header-bg);
+    color: white;
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+  }
+  .settings-title { font-size: 20px; font-weight: 700; }
+  .settings-close {
+    background: rgba(255,255,255,0.2);
+    border: none;
+    color: white;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+  }
+  .settings-close:hover { background: rgba(255,255,255,0.35); transform: scale(1.1); }
+
+  .settings-body { padding: 24px; }
+
+  .setting-group {
+    margin-bottom: 24px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  .setting-group:last-child { border-bottom: none; margin-bottom: 0; }
+
+  .setting-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 12px;
+  }
+  .setting-icon { font-size: 20px; }
+
+  .setting-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .setting-opt {
+    padding: 9px 18px;
+    border-radius: 50px;
+    border: 2px solid var(--border);
+    background: var(--surface2);
+    color: var(--text-secondary);
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    font-family: inherit;
+  }
+  .setting-opt:hover { border-color: var(--primary); color: var(--primary); }
+  .setting-opt.active {
+    border-color: var(--primary);
+    background: var(--primary);
+    color: white;
+    box-shadow: 0 3px 10px rgba(26,115,232,0.35);
+  }
+
+  /* 字體大小滑桿 */
+  .font-slider-wrap {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .font-slider {
+    flex: 1;
+    -webkit-appearance: none;
+    height: 6px;
+    border-radius: 3px;
+    background: linear-gradient(to right, var(--primary) 0%, var(--primary) var(--val, 50%), var(--border) var(--val, 50%), var(--border) 100%);
+    outline: none;
+    cursor: pointer;
+  }
+  .font-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: var(--primary);
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(26,115,232,0.4);
+    transition: transform 0.2s;
+  }
+  .font-slider::-webkit-slider-thumb:hover { transform: scale(1.2); }
+  .font-size-label { font-size: 14px; color: var(--text-muted); min-width: 50px; text-align: center; font-weight: 700; }
+
+  /* 開關 */
+  .toggle-switch {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+  }
+  .toggle-track {
+    width: 56px; height: 28px;
+    border-radius: 14px;
+    background: var(--border);
+    position: relative;
+    transition: background 0.3s;
+    flex-shrink: 0;
+  }
+  .toggle-track.on { background: var(--secondary); }
+  .toggle-thumb {
+    position: absolute;
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: white;
+    top: 3px; left: 3px;
+    transition: left 0.3s cubic-bezier(0.4,0,0.2,1);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  }
+  .toggle-track.on .toggle-thumb { left: 31px; }
+  .toggle-label { font-size: 15px; font-weight: 600; color: var(--text); }
+
+  /* ===== 回到頂部 ===== */
+  .back-to-top {
+    position: fixed;
+    bottom: 96px;
+    right: 24px;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--surface);
+    border: 2px solid var(--border);
+    color: var(--primary);
+    font-size: 22px;
+    cursor: pointer;
+    box-shadow: var(--shadow);
+    z-index: 900;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  .back-to-top.visible { opacity: 1; transform: translateY(0); }
+  .back-to-top:hover { background: var(--primary); color: white; transform: translateY(-4px); }
+
+  /* ===== 通知提示 ===== */
+  .toast {
+    position: fixed;
+    bottom: 100px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: rgba(30,41,59,0.95);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 50px;
+    font-size: 15px;
+    font-weight: 600;
+    z-index: 9999;
+    opacity: 0;
+    transition: all 0.3s ease;
+    pointer-events: none;
+    white-space: nowrap;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  /* ===== 搜尋高亮 ===== */
+  mark {
+    background: linear-gradient(120deg, rgba(251,188,4,0.5) 0%, rgba(251,188,4,0.8) 100%);
+    color: inherit;
+    border-radius: 3px;
+    padding: 0 2px;
+  }
+
+  /* ===== 響應式設計 ===== */
+  @media (max-width: 768px) {
+    .ext-table thead { display: none; }
+    .ext-table, .ext-table tbody, .ext-table tr, .ext-table td { display: block; width: 100%; }
+    .ext-table tr {
+      border-bottom: 2px solid var(--border);
+      padding: 12px 16px;
+    }
+    .ext-table td {
+      border: none;
+      padding: 4px 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .ext-table td::before {
+      content: attr(data-label);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+      min-width: 50px;
+    }
+    .copy-btn { opacity: 1; }
+    .header-stats { gap: 12px; }
+    .stat-badge { font-size: 12px; padding: 5px 12px; }
+  }
+
+  @media (max-width: 480px) {
+    .site-title { font-size: 22px; }
+    .filter-tabs { gap: 6px; }
+    .filter-tab { font-size: 12px; padding: 7px 14px; }
+  }
+
+  /* ===== 動畫進場延遲 ===== */
+  .dept-section:nth-child(1) { animation-delay: 0.1s; }
+  .dept-section:nth-child(2) { animation-delay: 0.15s; }
+  .dept-section:nth-child(3) { animation-delay: 0.2s; }
+  .dept-section:nth-child(4) { animation-delay: 0.25s; }
+  .dept-section:nth-child(5) { animation-delay: 0.3s; }
+  .dept-section:nth-child(6) { animation-delay: 0.35s; }
+  .dept-section:nth-child(7) { animation-delay: 0.4s; }
+  .dept-section:nth-child(8) { animation-delay: 0.45s; }
+
+  /* ===== 頁腳 ===== */
+  .site-footer {
+    text-align: center;
+    padding: 24px;
+    color: var(--text-muted);
+    font-size: 13px;
+    border-top: 1px solid var(--border);
+    margin-top: 40px;
+  }
+
+  /* ===== 全螢幕模式 ===== */
+  :fullscreen body { overflow-y: auto; }
+  :-webkit-full-screen body { overflow-y: auto; }
+
+  /* ===== 列印樣式 ===== */
+  @media print {
+    .settings-fab, .back-to-top, .settings-overlay, .settings-panel, .search-section { display: none !important; }
+    .dept-body { max-height: none !important; }
+    body { background: white; color: black; }
+  }
+</style>
+</head>
+<body>
+
+<!-- 粒子背景 -->
+<div id="particles-bg"></div>
+
+<!-- 主應用容器 -->
+<div class="app-wrapper">
+  <!-- 頁首 -->
+  <header class="site-header">
+    <span class="header-icon">🏫</span>
+    <h1 class="site-title">楊梅高中分機一覽表</h1>
+    <p class="site-subtitle">桃園市立楊梅高級中學 | 語音電話分機查詢系統</p>
+    <div class="header-stats">
+      <div class="stat-badge">📋 <span id="total-count">0</span> 筆分機</div>
+      <div class="stat-badge">🏢 <span id="dept-count">0</span> 個單位</div>
+      <div class="stat-badge">📅 版本 115/09/07</div>
+    </div>
+  </header>
+
+  <!-- 總機橫幅 -->
+  <div class="hotline-banner">
+    <div class="hotline-icon">📞</div>
+    <div class="hotline-info">
+      <div class="hotline-title">學校總機</div>
+      <div style="font-size: 14px; opacity: 0.9; margin-bottom: 8px;">撥打總機後，再直撥分機號碼</div>
+      <div class="hotline-numbers">
+        <span class="hotline-num" onclick="copyText('03-4789618','代表號')">📞 03-4789618（代表號）</span>
+        <span class="hotline-num" onclick="copyText('4780449','二線')">📞 4780449（二線）</span>
+        <span class="hotline-num" onclick="copyText('4780740','三線')">📞 4780740（三線）</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 搜尋區 -->
+  <div class="search-section">
+    <div class="search-box-wrap">
+      <div class="search-input-wrap">
+        <span class="search-icon">🔍</span>
+        <input type="search" class="search-input" id="searchInput"
+          placeholder="搜尋單位名稱、分機號碼或人名…"
+          autocomplete="off" inputmode="search">
+        <button class="search-clear" id="clearBtn" onclick="clearSearch()" title="清除">✕</button>
+      </div>
+      <div class="view-toggle" id="viewToggle">
+        <button class="view-btn active" id="tableViewBtn" onclick="setView('table')" title="表格視圖">☰</button>
+        <button class="view-btn" id="cardViewBtn" onclick="setView('card')" title="卡片視圖">⊞</button>
+      </div>
+    </div>
+    <div class="filter-tabs" id="filterTabs">
+      <button class="filter-tab active" data-dept="all" onclick="filterByDept('all')">全部</button>
+    </div>
+  </div>
+
+  <!-- 結果摘要 -->
+  <div class="result-summary" id="resultSummary">
+    <span>📊 顯示</span>
+    <span class="result-count" id="resultCount">0</span>
+    <span>筆結果</span>
+  </div>
+
+  <!-- 無結果 -->
+  <div class="no-results" id="noResults">
+    <div class="no-results-icon">🔍</div>
+    <div class="no-results-text" data-i18n="no-results">查無符合結果</div>
+    <div class="no-results-sub" data-i18n="try-again">請嘗試其他關鍵字</div>
+  </div>
+
+  <!-- 分機列表容器 -->
+  <div id="mainContent"></div>
+
+  <!-- 頁腳 -->
+  <footer class="site-footer">
+    <p>🏫 桃園市立楊梅高級中學 | 分機一覽表 | 版本：115/09/07 | 編製：總務處</p>
+    <p style="margin-top:6px">點擊分機號碼可快速複製 | ⚙️ 右下角設定可調整顯示選項</p>
+  </footer>
+</div>
+
+<!-- 回到頂部 -->
+<button class="back-to-top" id="backToTop" onclick="scrollToTop()" title="回到頂部">⬆</button>
+
+<!-- 設定浮動按鈕 -->
+<button class="settings-fab" onclick="openSettings()" title="顯示與操作設定">
+  <span class="settings-spin">⚙️</span>
+</button>
+
+<!-- 設定面板遮罩 -->
+<div class="settings-overlay" id="settingsOverlay" onclick="closeSettings()"></div>
+
+<!-- 設定面板 -->
+<div class="settings-panel" id="settingsPanel">
+  <div class="settings-header">
+    <div class="settings-title">⚙️ 顯示與操作設定</div>
+    <button class="settings-close" onclick="closeSettings()">✕</button>
+  </div>
+  <div class="settings-body">
+    <!-- (1) 全螢幕 -->
+    <div class="setting-group">
+      <div class="setting-label"><span class="setting-icon">⛶</span> 全螢幕模式</div>
+      <label class="toggle-switch" onclick="toggleFullscreen()">
+        <div class="toggle-track" id="fsToggle"><div class="toggle-thumb"></div></div>
+        <span class="toggle-label" id="fsLabel">關閉</span>
+      </label>
+    </div>
+
+    <!-- (2) 音效 -->
+    <div class="setting-group">
+      <div class="setting-label"><span class="setting-icon">🔊</span> 音效</div>
+      <label class="toggle-switch" onclick="toggleSound()">
+        <div class="toggle-track on" id="soundToggle"><div class="toggle-thumb"></div></div>
+        <span class="toggle-label" id="soundLabel">開啟</span>
+      </label>
+    </div>
+
+    <!-- (3) 裝置 -->
+    <div class="setting-group">
+      <div class="setting-label"><span class="setting-icon">📱</span> 裝置模式</div>
+      <div class="setting-options">
+        <button class="setting-opt active" data-device="auto" onclick="setDevice('auto')">🔄 自動</button>
+        <button class="setting-opt" data-device="mobile" onclick="setDevice('mobile')">📱 手機</button>
+        <button class="setting-opt" data-device="tablet" onclick="setDevice('tablet')">📲 平板</button>
+        <button class="setting-opt" data-device="desktop" onclick="setDevice('desktop')">💻 電腦</button>
+      </div>
+    </div>
+
+    <!-- (4) 版面 -->
+    <div class="setting-group">
+      <div class="setting-label"><span class="setting-icon">📐</span> 版面方向</div>
+      <div class="setting-options">
+        <button class="setting-opt active" data-layout="auto" onclick="setLayout('auto')">🔄 自動</button>
+        <button class="setting-opt" data-layout="portrait" onclick="setLayout('portrait')">📱 直式</button>
+        <button class="setting-opt" data-layout="landscape" onclick="setLayout('landscape')">🖥️ 橫式</button>
+      </div>
+    </div>
+
+    <!-- (5) 語言 -->
+    <div class="setting-group">
+      <div class="setting-label"><span class="setting-icon">🌐</span> 語言</div>
+      <div class="setting-options">
+        <button class="setting-opt active" data-lang="zh" onclick="setLang('zh')">🇹🇼 繁體中文</button>
+        <button class="setting-opt" data-lang="en" onclick="setLang('en')">🇺🇸 English</button>
+      </div>
+    </div>
+
+    <!-- (6) 字體 -->
+    <div class="setting-group">
+      <div class="setting-label"><span class="setting-icon">🔤</span> 字體大小</div>
+      <div class="setting-options">
+        <button class="setting-opt" onclick="changeFontSize(-2)">🔽 縮小</button>
+        <button class="setting-opt active" onclick="resetFontSize()">✅ 標準</button>
+        <button class="setting-opt" onclick="changeFontSize(2)">🔼 放大</button>
+      </div>
+      <div class="font-slider-wrap" style="margin-top:12px">
+        <span style="font-size:12px">A</span>
+        <input type="range" class="font-slider" id="fontSlider" min="12" max="24" value="16" oninput="setFontSizeSlider(this.value)">
+        <span style="font-size:20px">A</span>
+        <span class="font-size-label" id="fontSizeLabel">16px</span>
+      </div>
+    </div>
+
+    <!-- (7) 色系 -->
+    <div class="setting-group">
+      <div class="setting-label"><span class="setting-icon">🎨</span> 色系主題</div>
+      <div class="setting-options">
+        <button class="setting-opt active" data-theme-opt="system" onclick="setTheme('system')">⚙️ 跟隨系統</button>
+        <button class="setting-opt" data-theme-opt="light" onclick="setTheme('light')">☀️ 亮色</button>
+        <button class="setting-opt" data-theme-opt="dark" onclick="setTheme('dark')">🌙 暗色</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 通知提示 -->
+<div class="toast" id="toast"></div>
+
+<script>
+// =====================================================
+// 分機資料庫
+// =====================================================
+const departments = [
+  {
+    id: 'principal',
+    name: '校長室',
+    icon: '🏛️',
+    color: '#1a73e8',
+    ext: [
+      { name: '校長', nums: ['1101'], person: '鍾校長' },
+      { name: '秘書', nums: ['1102'], person: '黃秘書' },
+      { name: '技工', nums: ['1103'], person: '劉小姐' },
+      { name: '校長宿舍', nums: ['1104'], person: '' },
+      { name: '警衛室', nums: ['1110'], person: '' },
+      { name: '聯合辦公室', nums: ['1112'], person: '' },
+      { name: '第一會議室', nums: ['1113'], person: '' },
+      { name: '交通安全教室', nums: ['1114'], person: '' },
+      { name: '第二會議室', nums: ['1115'], person: '' },
+      { name: '協力組織', nums: [], person: '' },
+    ],
+    fax: []
+  },
+  {
+    id: 'academic',
+    name: '教務處',
+    icon: '📚',
+    color: '#34a853',
+    ext: [
+      { name: '主任', nums: ['1201'], person: '李主任' },
+      { name: '教學組長', nums: ['1211'], person: '邱組長' },
+      { name: '幹事', nums: ['1212'], person: '張小姐' },
+      { name: '印刷室', nums: ['1213'], person: '陳先生' },
+      { name: '註冊組長', nums: ['1221'], person: '賴組長' },
+      { name: '幹事', nums: ['1222'], person: '曾小姐' },
+      { name: '設備組長', nums: ['1231'], person: '鄭組長' },
+      { name: '助理員', nums: ['1232'], person: '謝小姐' },
+      { name: '書記', nums: ['1233'], person: '吳先生' },
+      { name: '數位前導助理', nums: ['1234'], person: '王小姐' },
+      { name: '實驗研究組長', nums: ['1241'], person: '邱組長' },
+      { name: '幹事', nums: ['1242'], person: '宋先生' },
+      { name: '均質化專案助理', nums: ['1243'], person: '' },
+      { name: '學期歷程檔案助理', nums: ['1244'], person: '楊小姐' },
+      { name: '試務組組長', nums: ['1251'], person: '蘇組長' },
+      { name: '幹事', nums: ['1252'], person: '蔡小姐' },
+      { name: '英語教師', nums: ['1262'], person: '' },
+      { name: '雙語助理', nums: ['1263'], person: '葉先生' },
+      { name: '雙語教師', nums: ['1264'], person: '高老師' },
+      { name: '健康中心', nums: ['1119'], person: '陳小姐' },
+    ],
+    fax: ['4783574', '4882675']
+  },
+  {
+    id: 'students',
+    name: '學務處',
+    icon: '👥',
+    color: '#7c3aed',
+    ext: [
+      { name: '主任', nums: ['1121'], person: '邱主任' },
+      { name: '組員', nums: ['1122'], person: '陳先生' },
+      { name: '會計室', nums: [], person: '' },
+      { name: '主任', nums: ['1131'], person: '林主任' },
+      { name: '組員', nums: ['1132'], person: '張小姐' },
+      { name: '佐理員', nums: ['1133'], person: '陳小姐' },
+      { name: '訓育組長', nums: ['1311'], person: '簡組長' },
+      { name: '幹事', nums: ['1312'], person: '傅小姐' },
+      { name: '活動組長', nums: ['1321'], person: '魏組長' },
+      { name: '學務創新人力', nums: ['1322'], person: '林先生' },
+      { name: '體育組長', nums: ['1331'], person: '廖組長' },
+      { name: '游泳池', nums: ['1333'], person: '陳先生' },
+      { name: '管理員', nums: ['1334'], person: '鍾小姐' },
+      { name: '跆拳道館', nums: ['1335'], person: '' },
+      { name: '衛生組長', nums: ['1341'], person: '詹組長' },
+      { name: '護理師(健康中心)', nums: ['1342'], person: '陳小姐' },
+      { name: '學務創新人力', nums: ['1343'], person: '張先生' },
+      { name: '禮堂準備室', nums: ['1324'], person: '' },
+      { name: '校安中心', nums: [], person: '' },
+      { name: '生輔組長', nums: ['1352'], person: '張組長' },
+      { name: '學務創新人力', nums: ['1351'], person: '廖先生' },
+      { name: '學務創新人力', nums: ['1353'], person: '李先生' },
+      { name: '學務創新人力', nums: ['1354'], person: '陳先生' },
+      { name: '幹事', nums: ['1355'], person: '范小姐' },
+      { name: '學務創新人力', nums: ['1356'], person: '郭先生' },
+      { name: '學務創新人力', nums: ['1357'], person: '彭先生' },
+    ],
+    fax: ['4789683', '4782322']
+  },
+  {
+    id: 'general',
+    name: '總務處',
+    icon: '🔧',
+    color: '#ea4335',
+    ext: [
+      { name: '主任', nums: ['1401'], person: '劉主任' },
+      { name: '文書組長', nums: ['1411'], person: '黃組長' },
+      { name: '臨時人員', nums: ['1412'], person: '鍾小姐' },
+      { name: '出納組長', nums: ['1421'], person: '黃組長' },
+      { name: '庶務組長', nums: ['1431'], person: '劉組長' },
+      { name: '財管管理員', nums: ['1432'], person: '謝先生' },
+      { name: '採購幹事', nums: ['1433'], person: '張先生' },
+      { name: '學務創新人力', nums: ['1434'], person: '彭先生' },
+      { name: '臨時人員', nums: ['1435'], person: '宋先生' },
+    ],
+    fax: ['4783349', '4780164']
+  },
+  {
+    id: 'counseling',
+    name: '輔導室',
+    icon: '💙',
+    color: '#06b6d4',
+    ext: [
+      { name: '輔導主任', nums: ['1503'], person: '林主任' },
+      { name: '專任輔導教師', nums: ['1504'], person: '陳老師' },
+      { name: '專任輔導教師', nums: ['1507'], person: '吳老師' },
+      { name: '專任輔導教師', nums: ['1501'], person: '金老師' },
+      { name: '專任輔導教師', nums: ['1502'], person: '陳老師' },
+      { name: '特教教師1', nums: ['1505'], person: '何老師' },
+      { name: '特教教師2', nums: ['1506'], person: '林老師' },
+      { name: '特教教師3', nums: ['1511'], person: '曾老師' },
+      { name: '生涯資訊室', nums: ['1508'], person: '' },
+      { name: '團體諮商室', nums: ['1509'], person: '' },
+      { name: '學習中心', nums: ['1510'], person: '' },
+    ],
+    fax: ['4750453']
+  },
+  {
+    id: 'library',
+    name: '圖書館',
+    icon: '📖',
+    color: '#f59e0b',
+    ext: [
+      { name: '主任', nums: ['1601'], person: '施主任' },
+      { name: '讀者服務組長', nums: ['1602'], person: '何組長' },
+      { name: '資訊媒體組長', nums: ['1603'], person: '賴組長' },
+      { name: '幹事/讀者服務櫃台', nums: ['1605'], person: '呂小姐' },
+      { name: '喜閱學堂', nums: ['1606'], person: '' },
+      { name: '演藝廳', nums: ['1607'], person: '' },
+    ],
+    fax: ['4780586']
+  },
+  {
+    id: 'training',
+    name: '實習處',
+    icon: '🎓',
+    color: '#ec4899',
+    ext: [
+      { name: '實習處主任', nums: ['1701'], person: '簡主任' },
+      { name: '實習就業組長', nums: ['1702'], person: '蔡組長' },
+      { name: '資訊科主任', nums: ['1703'], person: '廖主任' },
+      { name: '技佐', nums: ['1704'], person: '林先生' },
+      { name: '電子科主任', nums: ['1705'], person: '余主任' },
+      { name: '技士', nums: ['1706'], person: '卓小姐' },
+      { name: '英語情境教室', nums: ['1711'], person: '' },
+      { name: '日新樓展演中心', nums: ['1712'], person: '' },
+      { name: '護理教室', nums: ['1751'], person: '' },
+      { name: '計概教室', nums: ['1752'], person: '' },
+      { name: '音樂教室', nums: ['1761'], person: '' },
+      { name: '藝術生活教室', nums: ['1764'], person: '' },
+      { name: '視覺藝術教室', nums: ['1765'], person: '' },
+    ],
+    fax: ['4856117']
+  },
+  {
+    id: 'classrooms',
+    name: '導師辦公室',
+    icon: '🏫',
+    color: '#16a34a',
+    ext: [
+      { name: '悅知樓1樓導師室(高一)', nums: ['1361', '1365'], person: '' },
+      { name: '悅知樓2樓導師室(高一)', nums: ['1366'], person: '' },
+      { name: '悅知樓3樓導師室(高二)', nums: ['1362', '1364'], person: '' },
+      { name: '日新樓1樓導師室(高三)', nums: ['1363', '1367'], person: '' },
+    ],
+    fax: []
+  },
+  {
+    id: 'specialrooms',
+    name: '專任教師辦公室',
+    icon: '👨‍🏫',
+    color: '#0891b2',
+    ext: [
+      { name: '蘊慧樓1樓專一辦公室', nums: ['1271', '1275'], person: '' },
+      { name: '蘊慧樓2樓專二辦公室', nums: ['1272'], person: '' },
+      { name: '日新樓2樓專三辦公室', nums: ['1273'], person: '' },
+      { name: '日樓新3樓專四辦公室', nums: ['1274'], person: '' },
+      { name: '啟明樓校史室', nums: ['1284'], person: '' },
+      { name: '語言教室', nums: ['1285'], person: '' },
+      { name: '蘊慧樓電腦機房', nums: ['1286'], person: '' },
+      { name: '電腦教室一', nums: ['1287'], person: '' },
+      { name: '視聽一教室', nums: ['1288'], person: '' },
+      { name: '電腦教室二', nums: ['1289'], person: '' },
+      { name: '美術教室', nums: ['1291'], person: '' },
+      { name: '科技應用教室', nums: ['1292'], person: '' },
+      { name: '新興科技推廣教室', nums: ['1293'], person: '' },
+      { name: '雙語教室', nums: ['1294'], person: '' },
+      { name: '電腦教室三', nums: ['1295'], person: '' },
+      { name: '探究與實作教室', nums: ['1296'], person: '' },
+      { name: '環境教育中心', nums: ['1297'], person: '' },
+      { name: '化學實驗室', nums: ['1373'], person: '' },
+      { name: '基礎理化實驗室', nums: ['1374'], person: '' },
+      { name: '物理實驗室', nums: ['1375'], person: '' },
+      { name: '生物實驗室', nums: ['1376'], person: '' },
+      { name: '基礎生物實驗室', nums: ['1378'], person: '' },
+      { name: '地科實驗室', nums: ['1379'], person: '' },
+      { name: '御風2-1', nums: ['2421'], person: '' },
+      { name: '御風2-2', nums: ['2422'], person: '' },
+      { name: '御風2-3', nums: ['2423'], person: '' },
+      { name: '御風3-1', nums: ['2431'], person: '' },
+      { name: '御風3-2', nums: ['2432'], person: '' },
+      { name: '御風3-3', nums: ['2433'], person: '' },
+      { name: '御風3-4', nums: ['2434'], person: '' },
+      { name: '社團教室2', nums: ['2435'], person: '' },
+      { name: '體育器材室', nums: ['1811'], person: '' },
+      { name: '烹飪教室', nums: ['1822'], person: '' },
+      { name: '生活科技教室', nums: ['1821'], person: '' },
+      { name: '家政教室', nums: ['1822'], person: '' },
+    ],
+    fax: ['4784103', '4755774', '4758950', '4757034', '4780428', '4758437']
+  },
+  {
+    id: 'coop',
+    name: '員生社',
+    icon: '🏪',
+    color: '#d97706',
+    ext: [
+      { name: '員生社', nums: ['1491'], person: '林小姐' },
+    ],
+    fax: ['4750453']
+  },
+];
+
+// =====================================================
+// 狀態管理
+// =====================================================
+let state = {
+  searchQuery: '',
+  activeDept: 'all',
+  view: 'table',
+  sound: true,
+  theme: 'system',
+  fontSize: 16,
+  lang: 'zh',
+  device: 'auto',
+  layout: 'auto',
+  fullscreen: false,
+};
+
+// i18n 文字
+const i18n = {
+  zh: {
+    'search-placeholder': '搜尋單位名稱、分機號碼或人名…',
+    'no-results': '查無符合結果',
+    'try-again': '請嘗試其他關鍵字',
+    'col-name': '單位名稱',
+    'col-ext': '分機號碼',
+    'col-person': '負責人員',
+    'col-action': '操作',
+    'copied': '✅ 已複製！',
+    'results': '筆結果',
+    'showing': '顯示',
+  },
+  en: {
+    'search-placeholder': 'Search name, extension or person…',
+    'no-results': 'No results found',
+    'try-again': 'Try different keywords',
+    'col-name': 'Name',
+    'col-ext': 'Extension',
+    'col-person': 'Contact',
+    'col-action': 'Action',
+    'copied': '✅ Copied!',
+    'results': 'results',
+    'showing': 'Showing',
+  }
+};
+
+// =====================================================
+// 音效系統
+// =====================================================
+const AudioCtx = window.AudioContext || window.webkitAudioContext;
+let audioCtx = null;
+
+function getAudioCtx() {
+  if (!audioCtx) audioCtx = new AudioCtx();
+  return audioCtx;
+}
+
+function playSound(type) {
+  if (!state.sound) return;
+  try {
+    const ctx = getAudioCtx();
+    const o = ctx.createOscillator();
+    const g = ctx.createGain();
+    o.connect(g);
+    g.connect(ctx.destination);
+    
+    const configs = {
+      click:  { freq: 880, type: 'sine',     duration: 0.08, gain: 0.15 },
+      copy:   { freq: 1047, type: 'triangle', duration: 0.15, gain: 0.2 },
+      search: { freq: 660, type: 'sine',     duration: 0.1,  gain: 0.1 },
+      open:   { freq: 523, type: 'sine',     duration: 0.2,  gain: 0.12 },
+      close:  { freq: 392, type: 'sine',     duration: 0.15, gain: 0.1 },
+      toggle: { freq: 740, type: 'square',   duration: 0.08, gain: 0.08 },
+    };
+    
+    const { freq, type, duration, gain } = configs[type] || configs.click;
+    o.type = type;
+    o.frequency.value = freq;
+    g.gain.setValueAtTime(gain, ctx.currentTime);
+    g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
+    o.start(ctx.currentTime);
+    o.stop(ctx.currentTime + duration);
+  } catch (e) {}
+}
+
+// =====================================================
+// 渲染引擎
+// =====================================================
+function escHtml(str) {
+  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function highlightText(text, query) {
+  if (!query) return escHtml(text);
+  const re = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')})`, 'gi');
+  return escHtml(text).replace(re, '<mark>$1</mark>');
+}
+
+function renderAll() {
+  const container = document.getElementById('mainContent');
+  const q = state.searchQuery.toLowerCase().trim();
+  let totalVisible = 0;
+  
+  container.innerHTML = '';
+
+  departments.forEach((dept, dIdx) => {
+    if (state.activeDept !== 'all' && dept.id !== state.activeDept) return;
+
+    const filteredExt = dept.ext.filter(e => {
+      if (!q) return true;
+      return (
+        e.name.toLowerCase().includes(q) ||
+        e.nums.some(n => n.includes(q)) ||
+        e.person.toLowerCase().includes(q)
+      );
+    });
+
+    if (filteredExt.length === 0 && q) return;
+    totalVisible += filteredExt.length;
+
+    const section = document.createElement('div');
+    section.className = 'dept-section';
+    section.style.setProperty('animation-delay', `${dIdx * 0.05 + 0.1}s`);
+
+    const isTableView = state.view === 'table';
+    
+    if (isTableView) {
+      section.innerHTML = `
+        <div class="dept-header" style="background: linear-gradient(135deg, ${dept.color}, ${dept.color}cc)"
+             onclick="toggleDept(this)">
+          <span class="dept-icon">${dept.icon}</span>
+          <span class="dept-name">${dept.name}</span>
+          <span class="dept-count">${filteredExt.length}</span>
+          <span class="dept-toggle">▾</span>
+        </div>
+        <div class="dept-body">
+          <table class="ext-table">
+            <thead>
+              <tr>
+                <th>${t('col-name')}</th>
+                <th>${t('col-ext')}</th>
+                <th>${t('col-person')}</th>
+                <th>${t('col-action')}</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${filteredExt.map(e => `
+                <tr class="ext-row" onclick="rowClick(event,'${e.nums[0]||''}')">
+                  <td class="ext-name" data-label="${t('col-name')}">${highlightText(e.name, state.searchQuery)}</td>
+                  <td class="ext-num" data-label="${t('col-ext')}">
+                    ${e.nums.map(n => `<span class="num-badge" onclick="copyExt(event,'${n}')">${highlightText(n, state.searchQuery)}</span>`).join('')}
+                  </td>
+                  <td class="ext-person" data-label="${t('col-person')}">
+                    ${e.person ? `<span class="ext-person-badge">👤 ${highlightText(e.person, state.searchQuery)}</span>` : '<span style="color:var(--text-muted)">—</span>'}
+                  </td>
+                  <td data-label="${t('col-action')}">
+                    ${e.nums[0] ? `<button class="copy-btn" onclick="copyExt(event,'${e.nums[0]}')" title="複製分機">📋</button>` : ''}
+                  </td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+          ${dept.fax.length ? `<div style="padding:10px 16px;font-size:13px;color:var(--text-muted);border-top:1px solid var(--border)">📠 傳真：${dept.fax.join('、')}</div>` : ''}
+        </div>
+      `;
+    } else {
+      // 卡片視圖
+      section.innerHTML = `
+        <div class="dept-header" style="background: linear-gradient(135deg, ${dept.color}, ${dept.color}cc)"
+             onclick="toggleDept(this)">
+          <span class="dept-icon">${dept.icon}</span>
+          <span class="dept-name">${dept.name}</span>
+          <span class="dept-count">${filteredExt.length}</span>
+          <span class="dept-toggle">▾</span>
+        </div>
+        <div class="dept-body">
+          <div class="cards-grid">
+            ${filteredExt.map(e => `
+              <div class="ext-card" style="--card-accent: ${dept.color}" onclick="rowClick(event,'${e.nums[0]||''}')">
+                <div class="card-dept">${dept.name}</div>
+                <div class="card-name">${highlightText(e.name, state.searchQuery)}</div>
+                <div class="card-nums">
+                  ${e.nums.map(n => `<button class="card-num-btn" onclick="copyExt(event,'${n}')">${highlightText(n, state.searchQuery)}</button>`).join('')}
+                </div>
+                ${e.person ? `<div class="card-person">👤 ${highlightText(e.person, state.searchQuery)}</div>` : ''}
+              </div>
+            `).join('')}
+          </div>
+          ${dept.fax.length ? `<div style="padding:10px 16px;font-size:13px;color:var(--text-muted);border-top:1px solid var(--border)">📠 傳真：${dept.fax.join('、')}</div>` : ''}
+        </div>
+      `;
+    }
+
+    container.appendChild(section);
+  });
+
+  // 更新計數
+  document.getElementById('resultCount').textContent = totalVisible;
+  document.getElementById('noResults').classList.toggle('visible', totalVisible === 0 && !!q);
+  document.getElementById('total-count').textContent = departments.reduce((s,d) => s+d.ext.length, 0);
+  document.getElementById('dept-count').textContent = departments.length;
+}
+
+// =====================================================
+// 互動功能
+// =====================================================
+function toggleDept(header) {
+  playSound('click');
+  const body = header.nextElementSibling;
+  const toggle = header.querySelector('.dept-toggle');
+  body.classList.toggle('collapsed');
+  toggle.classList.toggle('collapsed');
+}
+
+function rowClick(e, num) {
+  if (e.target.classList.contains('num-badge') || e.target.classList.contains('card-num-btn') || e.target.classList.contains('copy-btn')) return;
+  if (num) copyText(num, num);
+}
+
+function copyExt(e, num) {
+  e.stopPropagation();
+  copyText(num, num);
+  const btn = e.currentTarget;
+  btn.classList.add('copied');
+  setTimeout(() => btn.classList.remove('copied'), 1500);
+}
+
+function copyText(text, label) {
+  playSound('copy');
+  navigator.clipboard.writeText(text).then(() => {
+    showToast(`${t('copied')} ${label}`);
+  }).catch(() => {
+    // fallback
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    showToast(`${t('copied')} ${label}`);
+  });
+}
+
+function showToast(msg) {
+  const toast = document.getElementById('toast');
+  toast.textContent = msg;
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 2000);
+}
+
+// =====================================================
+// 搜尋
+// =====================================================
+const searchInput = document.getElementById('searchInput');
+const clearBtn = document.getElementById('clearBtn');
+let searchTimer;
+
+searchInput.addEventListener('input', (e) => {
+  const val = e.target.value;
+  state.searchQuery = val;
+  clearBtn.classList.toggle('visible', !!val);
+  clearTimeout(searchTimer);
+  searchTimer = setTimeout(() => {
+    playSound('search');
+    renderAll();
+  }, 200);
+});
+
+function clearSearch() {
+  searchInput.value = '';
+  state.searchQuery = '';
+  clearBtn.classList.remove('visible');
+  playSound('click');
+  renderAll();
+  searchInput.focus();
+}
+
+// =====================================================
+// 篩選器
+// =====================================================
+function filterByDept(deptId) {
+  state.activeDept = deptId;
+  playSound('click');
+  document.querySelectorAll('.filter-tab').forEach(t => {
+    t.classList.toggle('active', t.dataset.dept === deptId);
+  });
+  renderAll();
+}
+
+function buildFilterTabs() {
+  const tabs = document.getElementById('filterTabs');
+  const allBtn = tabs.querySelector('[data-dept="all"]');
+  departments.forEach(d => {
+    const btn = document.createElement('button');
+    btn.className = 'filter-tab';
+    btn.dataset.dept = d.id;
+    btn.textContent = `${d.icon} ${d.name}`;
+    btn.onclick = () => filterByDept(d.id);
+    tabs.appendChild(btn);
+  });
+}
+
+// =====================================================
+// 視圖切換
+// =====================================================
+function setView(v) {
+  state.view = v;
+  playSound('toggle');
+  document.getElementById('tableViewBtn').classList.toggle('active', v === 'table');
+  document.getElementById('cardViewBtn').classList.toggle('active', v === 'card');
+  renderAll();
+}
+
+// =====================================================
+// 設定面板
+// =====================================================
+function openSettings() {
+  playSound('open');
+  document.getElementById('settingsOverlay').classList.add('open');
+  document.getElementById('settingsPanel').classList.add('open');
+}
+function closeSettings() {
+  playSound('close');
+  document.getElementById('settingsOverlay').classList.remove('open');
+  document.getElementById('settingsPanel').classList.remove('open');
+}
+
+// (1) 全螢幕
+function toggleFullscreen() {
+  playSound('toggle');
+  if (!document.fullscreenElement) {
+    document.documentElement.requestFullscreen();
+    state.fullscreen = true;
+    document.getElementById('fsToggle').classList.add('on');
+    document.getElementById('fsLabel').textContent = '開啟';
+  } else {
+    document.exitFullscreen();
+    state.fullscreen = false;
+    document.getElementById('fsToggle').classList.remove('on');
+    document.getElementById('fsLabel').textContent = '關閉';
+  }
+}
+document.addEventListener('fullscreenchange', () => {
+  if (!document.fullscreenElement) {
+    state.fullscreen = false;
+    document.getElementById('fsToggle').classList.remove('on');
+    document.getElementById('fsLabel').textContent = '關閉';
+  }
+});
+
+// (2) 音效
+function toggleSound() {
+  state.sound = !state.sound;
+  document.getElementById('soundToggle').classList.toggle('on', state.sound);
+  document.getElementById('soundLabel').textContent = state.sound ? '開啟' : '關閉';
+  if (state.sound) playSound('toggle');
+  saveSettings();
+}
+
+// (3) 裝置
+function setDevice(d) {
+  state.device = d;
+  playSound('click');
+  document.querySelectorAll('[data-device]').forEach(el => el.classList.toggle('active', el.dataset.device === d));
+  applyDevice(d);
+  saveSettings();
+}
+function applyDevice(d) {
+  const mq = { auto: '', mobile: '480px', tablet: '768px', desktop: '1200px' };
+  // 可依需求調整容器寬度
+  document.querySelector('.app-wrapper').style.maxWidth = d === 'auto' ? '1400px' : (d === 'mobile' ? '480px' : d === 'tablet' ? '768px' : '1400px');
+}
+
+// (4) 版面
+function setLayout(l) {
+  state.layout = l;
+  playSound('click');
+  document.querySelectorAll('[data-layout]').forEach(el => el.classList.toggle('active', el.dataset.layout === l));
+  saveSettings();
+}
+
+// (5) 語言
+function setLang(lang) {
+  state.lang = lang;
+  playSound('click');
+  document.querySelectorAll('[data-lang]').forEach(el => el.classList.toggle('active', el.dataset.lang === lang));
+  document.documentElement.lang = lang === 'zh' ? 'zh-TW' : 'en';
+  searchInput.placeholder = t('search-placeholder');
+  renderAll();
+  saveSettings();
+}
+
+function t(key) {
+  return (i18n[state.lang] || i18n['zh'])[key] || key;
+}
+
+// (6) 字體大小
+function changeFontSize(delta) {
+  state.fontSize = Math.min(24, Math.max(12, state.fontSize + delta));
+  applyFontSize();
+}
+function resetFontSize() {
+  state.fontSize = 16;
+  applyFontSize();
+}
+function setFontSizeSlider(v) {
+  state.fontSize = parseInt(v);
+  applyFontSize();
+}
+function applyFontSize() {
+  document.documentElement.style.setProperty('--font-size-base', `${state.fontSize}px`);
+  document.documentElement.style.setProperty('--font-size-sm', `${state.fontSize - 2}px`);
+  document.documentElement.style.setProperty('--font-size-lg', `${state.fontSize + 2}px`);
+  document.documentElement.style.setProperty('--font-size-xl', `${state.fontSize + 6}px`);
+  const slider = document.getElementById('fontSlider');
+  slider.value = state.fontSize;
+  const pct = ((state.fontSize - 12) / (24 - 12)) * 100;
+  slider.style.setProperty('--val', pct + '%');
+  document.getElementById('fontSizeLabel').textContent = state.fontSize + 'px';
+  saveSettings();
+}
+
+// (7) 色系
+function setTheme(theme) {
+  state.theme = theme;
+  playSound('click');
+  document.querySelectorAll('[data-theme-opt]').forEach(el => el.classList.toggle('active', el.dataset.themeOpt === theme));
+  applyTheme(theme);
+  saveSettings();
+}
+function applyTheme(theme) {
+  if (theme === 'system') {
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    document.documentElement.setAttribute('data-theme', prefersDark ? 'dark' : 'light');
+  } else {
+    document.documentElement.setAttribute('data-theme', theme);
+  }
+}
+
+// 系統主題偵測
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+  if (state.theme === 'system') applyTheme('system');
+});
+
+// =====================================================
+// 設定持久化
+// =====================================================
+function saveSettings() {
+  try {
+    localStorage.setItem('ymhs-settings', JSON.stringify({
+      sound: state.sound,
+      theme: state.theme,
+      fontSize: state.fontSize,
+      lang: state.lang,
+      view: state.view,
+    }));
+  } catch(e) {}
+}
+
+function loadSettings() {
+  try {
+    const saved = JSON.parse(localStorage.getItem('ymhs-settings') || '{}');
+    if (saved.sound !== undefined) { state.sound = saved.sound; document.getElementById('soundToggle').classList.toggle('on', state.sound); document.getElementById('soundLabel').textContent = state.sound ? '開啟' : '關閉'; }
+    if (saved.theme) setTheme(saved.theme);
+    else applyTheme('system');
+    if (saved.fontSize) { state.fontSize = saved.fontSize; applyFontSize(); }
+    if (saved.lang) setLang(saved.lang);
+    if (saved.view) setView(saved.view);
+  } catch(e) {
+    applyTheme('system');
+  }
+}
+
+// =====================================================
+// 回到頂部
+// =====================================================
+window.addEventListener('scroll', () => {
+  document.getElementById('backToTop').classList.toggle('visible', window.scrollY > 400);
+});
+function scrollToTop() {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  playSound('click');
+}
+
+// =====================================================
+// 粒子背景
+// =====================================================
+function initParticles() {
+  const bg = document.getElementById('particles-bg');
+  const colors = ['#1a73e8', '#34a853', '#fbbc04', '#ea4335', '#7c3aed', '#06b6d4', '#ec4899'];
+  for (let i = 0; i < 20; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    const size = Math.random() * 40 + 10;
+    const color = colors[Math.floor(Math.random() * colors.length)];
+    p.style.cssText = `
+      width: ${size}px;
+      height: ${size}px;
+      background: ${color};
+      left: ${Math.random() * 100}%;
+      animation-duration: ${Math.random() * 15 + 10}s;
+      animation-delay: ${Math.random() * 15}s;
+    `;
+    bg.appendChild(p);
+  }
+}
+
+// =====================================================
+// 鍵盤快捷鍵
+// =====================================================
+document.addEventListener('keydown', (e) => {
+  // Ctrl/Cmd + K => 聚焦搜尋
+  if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+    e.preventDefault();
+    searchInput.focus();
+    searchInput.select();
+    playSound('open');
+  }
+  // Escape => 清除搜尋/關閉設定
+  if (e.key === 'Escape') {
+    if (document.getElementById('settingsPanel').classList.contains('open')) {
+      closeSettings();
+    } else if (state.searchQuery) {
+      clearSearch();
+    }
+  }
+});
+
+// =====================================================
+// 初始化
+// =====================================================
+document.addEventListener('DOMContentLoaded', () => {
+  initParticles();
+  buildFilterTabs();
+  loadSettings();
+  renderAll();
+
+  // 歡迎音效（延遲）
+  setTimeout(() => playSound('open'), 500);
+});
+</script>
+</body>
+</html>
